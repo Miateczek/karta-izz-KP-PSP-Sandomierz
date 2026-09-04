@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Karta Zdarzenia IZZ</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background:
+        radial-gradient(circle at top, #252525 0%, #111 45%, #080808 100%);
+    color: #eee;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: linear-gradient(135deg, #151515, #050505);
+    border-bottom: 2px solid #ff7a00;
+    padding: 28px 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+header p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    background: rgba(25,25,25,0.96);
+    border: 1px solid #333;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.35);
+
+    transition: 0.2s;
+}
+
+.card:hover {
+    border-color: #444;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border-bottom: 1px solid #333;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+}
+
+.section-title h2 {
+    font-size: 19px;
+    color: #ff8a00;
+}
+
+.number {
+    background: #ff7a00;
+    color: #111;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-weight: bold;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #111;
+    color: #eee;
+
+    border: 1px solid #444;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #777;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    border-color: #ff7a00;
+
+    box-shadow:
+        0 0 0 2px rgba(255,122,0,0.15);
+}
+
+select option {
+    background: #181818;
+    color: white;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.hint {
+    font-size: 12px;
+    color: #777;
+    margin-top: 6px;
+}
+
+/* =========================
+   ZASTĘPY
+========================= */
+
+.crew-box,
+.resource-box {
+
+    border: 1px solid #353535;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+    margin-bottom: 13px;
+
+    background: #171717;
+}
+
+.crew-header,
+.resource-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.crew-header strong,
+.resource-header strong {
+    color: #ff8a00;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.remove-btn {
+
+    border: none;
+
+    background: #292929;
+
+    color: #ccc;
+
+    padding: 7px 11px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.remove-btn:hover {
+    background: #b3261e;
+    color: white;
+}
+
+.add-btn {
+
+    border: 1px solid #444;
+
+    background: #222;
+
+    color: #fff;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.add-btn:hover {
+
+    background: #ff7a00;
+
+    border-color: #ff7a00;
+
+    color: #111;
+}
+
+/* =========================
+   DATA I CZAS
+========================= */
+
+.datetime-row {
+
+    display: flex;
+
+    gap: 8px;
+
+    align-items: stretch;
+}
+
+.datetime-row input {
+    flex: 1;
+}
+
+.now-btn {
+
+    border: none;
+
+    background: #292929;
+
+    color: #fff;
+
+    padding: 0 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+.now-btn:hover {
+
+    background: #ff7a00;
+
+    color: #111;
+}
+
+/* =========================
+   AKCJE
+========================= */
+
+.actions {
+
+    display: flex;
+
+    gap: 12px;
+
+    justify-content: flex-end;
+
+    margin-top: 25px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.btn-secondary {
+
+    background: #292929;
+
+    color: #ddd;
+
+    border: 1px solid #444;
+}
+
+.btn-secondary:hover {
+    background: #3a3a3a;
+}
+
+.discord-btn {
+
+    background: #5865F2;
+
+    color: white;
+}
+
+.discord-btn:hover {
+
+    background: #4752C4;
+
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+
+    background: #ff7a00;
+
+    color: #111;
+}
+
+.btn-primary:hover {
+
+    background: #ff941f;
+
+    transform: translateY(-1px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    text-align: center;
+
+    color: #666;
+
+    padding: 25px;
+
+    font-size: 12px;
+
+    border-top: 1px solid #222;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    header {
+        padding: 22px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .datetime-row {
+        flex-direction: column;
+    }
+
+    .now-btn {
+        padding: 10px;
+    }
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    header {
+        background: #111 !important;
+        color: white !important;
+        print-color-adjust: exact;
+    }
+
+    .actions,
+    .add-btn,
+    .remove-btn,
+    .now-btn {
+        display: none;
+    }
+
+    .card {
+        background: white;
+        color: black;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    input,
+    select,
+    textarea {
+        color: black;
+        background: white;
+        border: 1px solid #aaa;
+    }
+
+    .section-title h2 {
+        color: #111;
+    }
+
+    .number {
+        background: #111;
+        color: white;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>🚒 Karta Zdarzenia IZZ</h1>
+
+    <p>
+        Elektroniczna karta zdarzenia
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     1. KDR
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">1</div>
+
+        <h2>
+            Kierujący działaniami ratowniczymi
+        </h2>
+
+    </div>
+
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>
+                Imię i nazwisko
+            </label>
+
+            <input
+                type="text"
+                id="kdrName"
+                placeholder="Wpisz imię i nazwisko">
+
+            <span class="hint">
+                Wpisz imię i nazwisko osoby.
+            </span>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Funkcja
+            </label>
+
+            <select id="kdrFunction">
+
+                <option value="">
+                    -- wybierz funkcję --
+                </option>
+
+                <option>
+                    Dowódca zastępu
+                </option>
+
+                <option>
+                    Kierujący działaniami ratowniczymi
+                </option>
+
+                <option>
+                    Oficer operacyjny
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     2. KATEGORIA
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">2</div>
+
+        <h2>
+            Kategoria zdarzenia
+        </h2>
+
+    </div>
+
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>
+                Kategoria zdarzenia
+            </label>
+
+            <select id="category">
+
+                <option value="">
+                    -- wybierz kategorię --
+                </option>
+
+                <option>
+                    Pożar
+                </option>
+
+                <option>
+                    Miejscowe zagrożenie
+                </option>
+
+                <option>
+                    Alarm fałszywy
+                </option>
+
+                <option>
+                    Przekazanie Na Zabezpieczenie Rejnonu
+                </option>
+
+                <option>
+                    Izolowane Zdarzenie Medyczne
+                </option>
+
+                <option>
+                    Ćwiczenia
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Wielkość zdarzenia
+            </label>
+
+            <select id="size">
+
+                <option value="">
+                    -- wybierz wielkość --
+                </option>
+
+                <option>
+                    Małe
+                </option>
+
+                <option>
+                    Średnie
+                </option>
+
+                <option>
+                    Duże
+                </option>
+
+                <option>
+                    Bardzo duże
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     3. ZASTĘPY
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">3</div>
+
+        <h2>
+            Obsada zastępów
+        </h2>
+
+    </div>
+
+
+    <div id="crewContainer">
+
+        <div class="crew-box">
+
+            <div class="crew-header">
+
+                <strong>
+                    Zastęp 1
+                </strong>
+
+                <button
+                    class="remove-btn"
+                    onclick="removeCrew(this)">
+
+                    Usuń
+
+                </button>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Numer zastępu / pojazd
+                    </label>
+
+                    <select class="crewVehicle">
+
+                        <option value="">
+                            -- wybierz zastęp --
+                        </option>
+
+                        <option>
+                            471[T]21 – GBA-Rt 3/16 Renault
+                        </option>
+
+                        <option>
+                            471[T]22 – GBA 2,5/16 Iveco
+                        </option>
+
+                        <option>
+                            471[T]25 – GCBA 5,4/37 MAN
+                        </option>
+
+                        <option>
+                            471[T]51 – Iveco Eurocargo Magirus SD 37
+                        </option>
+
+                        <option>
+                            471[T]55 – SLBus Ford Transit
+                        </option>
+
+                        <option>
+                            471[T]90 – SLRr Ford Ranger
+                        </option>
+
+                        <option>
+                            479[T]66 – GCBA RT Scania P360
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Obsada
+                    </label>
+
+                    <input
+                        type="text"
+                        class="crewMembers"
+                        placeholder="np. dowódca zastępu, kierowca, ratownik">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addCrew()">
+
+        + Dodaj zastęp
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     4. SIŁY I ŚRODKI
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">4</div>
+
+        <h2>
+            Siły i środki
+        </h2>
+
+    </div>
+
+
+    <div id="resourceContainer">
+
+        <div class="resource-box">
+
+            <div class="resource-header">
+
+                <strong>
+                    Siły i środek 1
+                </strong>
+
+                <button
+                    class="remove-btn"
+                    onclick="removeResource(this)">
+
+                    Usuń
+
+                </button>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Wybierz siły i środek
+                </label>
+
+                <select class="resourceSelect">
+
+                    <option value="">
+                        -- wybierz siły i środek --
+                    </option>
+
+                    <option>
+                        471[T]21 – GBA-Rt 3/16 Renault
+                    </option>
+
+                    <option>
+                        471[T]22 – GBA 2,5/16 Iveco
+                    </option>
+
+                    <option>
+                        471[T]25 – GCBA 5,4/37 MAN
+                    </option>
+
+                    <option>
+                        471[T]51 – Iveco Eurocargo Magirus SD 37
+                    </option>
+
+                    <option>
+                        471[T]55 – SLBus Ford Transit
+                    </option>
+
+                    <option>
+                        471[T]90 – SLRr Ford Ranger
+                    </option>
+
+                    <option>
+                        479[T]66 – GCBA RT Scania P360
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="add-btn"
+        onclick="addResource()">
+
+        + Dodaj siły i środek
+
+    </button>
+
+
+    <br><br>
+
+
+    <div class="form-group">
+
+        <label>
+            Dodatkowe siły i środki
+        </label>
+
+        <textarea
+            id="additionalResources"
+            placeholder="Wpisz dodatkowe zadysponowane siły i środki..."></textarea>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     5. PRZEBIEG
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">5</div>
+
+        <h2>
+            Przebieg działań
+        </h2>
+
+    </div>
+
+
+    <div class="form-grid">
+
+
+        <div class="form-group full">
+
+            <label>
+                📍 Lokalizacja zdarzenia
+            </label>
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Adres / miejscowość / lokalizacja">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Przybycie na miejsce zdarzenia
+            </label>
+
+            <div class="datetime-row">
+
+                <input
+                    type="datetime-local"
+                    id="arrivalTime">
+
+                <button
+                    class="now-btn"
+                    onclick="setCurrentDateTime('arrivalTime')">
+
+                    🕐 Teraz
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Zakończenie działań
+            </label>
+
+            <div class="datetime-row">
+
+                <input
+                    type="datetime-local"
+                    id="endTime">
+
+                <button
+                    class="now-btn"
+                    onclick="setCurrentDateTime('endTime')">
+
+                    🕐 Teraz
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     6. OPIS
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">6</div>
+
+        <h2>
+            Opis zdarzenia
+        </h2>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Opis zdarzenia i przebiegu działań
+        </label>
+
+        <textarea
+            id="description"
+            placeholder="Opisz szczegółowo zdarzenie, zastane warunki, podjęte działania, wykorzystane siły i środki oraz sposób zakończenia działań..."></textarea>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     7. SPORZĄDZAJĄCY
+===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        <div class="number">7</div>
+
+        <h2>
+            Osoba sporządzająca kartę
+        </h2>
+
+    </div>
+
+
+    <div class="form-grid">
+
+
+        <div class="form-group">
+
+            <label>
+                Imię i nazwisko
+            </label>
+
+            <input
+                type="text"
+                id="author"
+                placeholder="Wpisz imię i nazwisko">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Data sporządzenia
+            </label>
+
+            <div class="datetime-row">
+
+                <input
+                    type="date"
+                    id="creationDate">
+
+                <button
+                    class="now-btn"
+                    onclick="setCurrentDate('creationDate')">
+
+                    📅 Dzisiaj
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PRZYCISKI
+===================================================== -->
+
+<div class="actions">
+
+    <button
+        class="btn btn-secondary"
+        onclick="clearForm()">
+
+        🗑️ Wyczyść formularz
+
+    </button>
+
+    <button
+        class="btn discord-btn"
+        onclick="sendToDiscord()">
+
+        📨 Wyślij raport na Discord
+
+    </button>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+    Karta Zdarzenia IZZ • Elektroniczny formularz
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   WEBHOOK DISCORD
+===================================================== */
+
+/*
+   WKLEJ TUTAJ SWÓJ WEBHOOK.
+
+   Przykład:
+
+   const DISCORD_WEBHOOK_URL =
+   "https://discord.com/api/webhooks/ID/TOKEN";
+*/
+
+const DISCORD_WEBHOOK_URL =
+    "https://discord.com/api/webhooks/1544397789713141810/x0NCdgKYOS77Fvrgg-8WqaFf3bsUJpo28QpnTc1k8k2RQPFpZDyRKPhejlUNRb5zxVlZ";
+
+
+/* =====================================================
+   ZASTĘPY
+===================================================== */
+
+let crewNumber = 1;
+
+
+function addCrew() {
+
+    crewNumber++;
+
+    const container =
+        document.getElementById("crewContainer");
+
+    const crew =
+        document.createElement("div");
+
+    crew.className = "crew-box";
+
+
+    crew.innerHTML = `
+
+        <div class="crew-header">
+
+            <strong>
+                Zastęp ${crewNumber}
+            </strong>
+
+            <button
+                class="remove-btn"
+                onclick="removeCrew(this)">
+
+                Usuń
+
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group full">
+
+                <label>
+                    Numer zastępu / pojazd
+                </label>
+
+                <select class="crewVehicle">
+
+                    <option value="">
+                        -- wybierz zastęp --
+                    </option>
+
+                    <option>
+                        471[T]21 – GBA-Rt 3/16 Renault
+                    </option>
+
+                    <option>
+                        471[T]22 – GBA 2,5/16 Iveco
+                    </option>
+
+                    <option>
+                        471[T]25 – GCBA 5,4/37 MAN
+                    </option>
+
+                    <option>
+                        471[T]51 – Iveco Eurocargo Magirus SD 37
+                    </option>
+
+                    <option>
+                        471[T]55 – SLBus Ford Transit
+                    </option>
+
+                    <option>
+                        471[T]90 – SLRr Ford Ranger
+                    </option>
+
+                    <option>
+                        479[T]66 – GCBA RT Scania P360
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Obsada
+                </label>
+
+                <input
+                    type="text"
+                    class="crewMembers"
+                    placeholder="np. dowódca zastępu, kierowca, ratownik">
+
+            </div>
+
+        </div>
+    `;
+
+
+    container.appendChild(crew);
+}
+
+
+function removeCrew(button) {
+
+    const boxes =
+        document.querySelectorAll(".crew-box");
+
+
+    if (boxes.length <= 1) {
+
+        alert(
+            "Musi pozostać przynajmniej jeden zastęp."
+        );
+
+        return;
+    }
+
+
+    button
+        .closest(".crew-box")
+        .remove();
+
+
+    updateCrewNumbers();
+}
+
+
+function updateCrewNumbers() {
+
+    const boxes =
+        document.querySelectorAll(".crew-box");
+
+
+    boxes.forEach((box, index) => {
+
+        box.querySelector("strong").textContent =
+            `Zastęp ${index + 1}`;
+
+    });
+
+
+    crewNumber = boxes.length;
+}
+
+
+/* =====================================================
+   SIŁY I ŚRODKI
+===================================================== */
+
+let resourceNumber = 1;
+
+
+function addResource() {
+
+    resourceNumber++;
+
+
+    const container =
+        document.getElementById("resourceContainer");
+
+
+    const resource =
+        document.createElement("div");
+
+
+    resource.className =
+        "resource-box";
+
+
+    resource.innerHTML = `
+
+        <div class="resource-header">
+
+            <strong>
+                Siły i środek ${resourceNumber}
+            </strong>
+
+            <button
+                class="remove-btn"
+                onclick="removeResource(this)">
+
+                Usuń
+
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Wybierz siły i środek
+            </label>
+
+            <select class="resourceSelect">
+
+                <option value="">
+                    -- wybierz siły i środek --
+                </option>
+
+                <option>
+                    471[T]21 – GBA-Rt 3/16 Renault
+                </option>
+
+                <option>
+                    471[T]22 – GBA 2,5/16 Iveco
+                </option>
+
+                <option>
+                    471[T]25 – GCBA 5,4/37 MAN
+                </option>
+
+                <option>
+                    471[T]51 – Iveco Eurocargo Magirus SD 37
+                </option>
+
+                <option>
+                    471[T]55 – SLBus Ford Transit
+                </option>
+
+                <option>
+                    471[T]90 – SLRr Ford Ranger
+                </option>
+
+                <option>
+                    479[T]66 – GCBA RT Scania P360
+                </option>
+
+            </select>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(resource);
+}
+
+
+function removeResource(button) {
+
+    const boxes =
+        document.querySelectorAll(".resource-box");
+
+
+    if (boxes.length <= 1) {
+
+        alert(
+            "Musi pozostać przynajmniej jeden siły i środek."
+        );
+
+        return;
+    }
+
+
+    button
+        .closest(".resource-box")
+        .remove();
+
+
+    updateResourceNumbers();
+}
+
+
+function updateResourceNumbers() {
+
+    const boxes =
+        document.querySelectorAll(".resource-box");
+
+
+    boxes.forEach((box, index) => {
+
+        box.querySelector("strong").textContent =
+            `Siły i środek ${index + 1}`;
+
+    });
+
+
+    resourceNumber = boxes.length;
+}
+
+
+/* =====================================================
+   DATA I CZAS
+===================================================== */
+
+function setCurrentDateTime(id) {
+
+    const now = new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2, "0");
+
+
+    const day =
+        String(now.getDate())
+        .padStart(2, "0");
+
+
+    const hours =
+        String(now.getHours())
+        .padStart(2, "0");
+
+
+    const minutes =
+        String(now.getMinutes())
+        .padStart(2, "0");
+
+
+    document.getElementById(id).value =
+        `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+
+function setCurrentDate(id) {
+
+    const now = new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(now.getMonth() + 1)
+        .padStart(2, "0");
+
+
+    const day =
+        String(now.getDate())
+        .padStart(2, "0");
+
+
+    document.getElementById(id).value =
+        `${year}-${month}-${day}`;
+}
+
+
+/* =====================================================
+   POBIERANIE WARTOŚCI
+===================================================== */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return "Brak danych";
+    }
+
+
+    return element.value.trim() ||
+           "Brak danych";
+}
+
+
+/* =====================================================
+   ZASTĘPY DO DISCORDA
+===================================================== */
+
+function getCrews() {
+
+    const boxes =
+        document.querySelectorAll(".crew-box");
+
+
+    let result = "";
+
+
+    boxes.forEach((box, index) => {
+
+        const vehicle =
+            box.querySelector(".crewVehicle")?.value ||
+            "Nie wybrano";
+
+
+        const members =
+            box.querySelector(".crewMembers")?.value ||
+            "Brak danych";
+
+
+        result +=
+            `**Zastęp ${index + 1}:** ${vehicle}\n` +
+            `👨‍🚒 Obsada: ${members}\n\n`;
+
+    });
+
+
+    return result || "Brak danych";
+}
+
+
+/* =====================================================
+   SIŁY DO DISCORDA
+===================================================== */
+
+function getResources() {
+
+    const boxes =
+        document.querySelectorAll(".resource-box");
+
+
+    let result = "";
+
+
+    boxes.forEach((box, index) => {
+
+        const resource =
+            box.querySelector(".resourceSelect")?.value ||
+            "Nie wybrano";
+
+
+        result +=
+            `**${index + 1}.** ${resource}\n`;
+
+    });
+
+
+    return result || "Brak danych";
+}
+
+
+/* =====================================================
+   WYSYŁANIE DO DISCORDA
+===================================================== */
+
+async function sendToDiscord() {
+
+
+    if (
+        !DISCORD_WEBHOOK_URL ||
+        DISCORD_WEBHOOK_URL ===
+        "WKLEJ_TUTAJ_SWÓJ_WEBHOOK"
+    ) {
+
+        alert(
+            "❌ Najpierw wpisz webhook Discord w kodzie strony."
+        );
+
+        return;
+    }
+
+
+    const payload = {
+
+        username:
+            "🚒 Karta Zdarzenia IZZ",
+
+
+        embeds: [
+
+            {
+
+                title:
+                    "🚒 KARTA ZDARZENIA IZZ",
+
+
+                description:
+                    "Nowy raport ze zdarzenia został sporządzony.",
+
+
+                color:
+                    16742400,
+
+
+                fields: [
+
+                    {
+
+                        name:
+                            "👨‍🚒 Kierujący działaniami",
+
+
+                        value:
+                            `**Imię i nazwisko:** ${getValue("kdrName")}\n` +
+                            `**Funkcja:** ${getValue("kdrFunction")}`,
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "🔥 Kategoria zdarzenia",
+
+
+                        value:
+                            `**Kategoria:** ${getValue("category")}\n` +
+                            `**Wielkość:** ${getValue("size")}`,
+
+
+                        inline:
+                            true
+
+                    },
+
+
+                    {
+
+                        name:
+                            "📍 Lokalizacja",
+
+
+                        value:
+                            getValue("location"),
+
+
+                        inline:
+                            true
+
+                    },
+
+
+                    {
+
+                        name:
+                            "🚒 Obsada zastępów",
+
+
+                        value:
+                            getCrews(),
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "🧰 Siły i środki",
+
+
+                        value:
+                            getResources(),
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "➕ Dodatkowe siły i środki",
+
+
+                        value:
+                            getValue("additionalResources"),
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "⏱️ Czasy działań",
+
+
+                        value:
+                            `**Przybycie:** ${getValue("arrivalTime")}\n` +
+                            `**Zakończenie:** ${getValue("endTime")}`,
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "📝 Opis zdarzenia",
+
+
+                        value:
+                            getValue("description"),
+
+
+                        inline:
+                            false
+
+                    },
+
+
+                    {
+
+                        name:
+                            "👤 Osoba sporządzająca",
+
+
+                        value:
+                            `**Imię i nazwisko:** ${getValue("author")}\n` +
+                            `**Data:** ${getValue("creationDate")}`,
+
+
+                        inline:
+                            false
+
+                    }
+
+                ],
+
+
+                footer: {
+
+                    text:
+                        "Karta Zdarzenia IZZ • Elektroniczny formularz"
+
+                },
+
+
+                timestamp:
+                    new Date().toISOString()
+
+            }
+
+        ]
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                DISCORD_WEBHOOK_URL,
+                {
+
+                    method:
+                        "POST",
+
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+
+                    body:
+                        JSON.stringify(payload)
+
+                }
+            );
+
+
+        if (response.ok) {
+
+            alert(
+                "✅ Raport został wysłany na Discord!"
+            );
+
+        } else {
+
+            const errorText =
+                await response.text();
+
+
+            console.error(errorText);
+
+
+            alert(
+                "❌ Discord odrzucił raport.\n\n" +
+                "Sprawdź webhook Discord."
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "❌ Nie udało się połączyć z Discordem."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   WYCZYSZCZENIE FORMULARZA
+===================================================== */
+
+function clearForm() {
+
+    if (
+        confirm(
+            "Czy na pewno chcesz wyczyścić cały formularz?"
+        )
+    ) {
+
+        location.reload();
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+```
